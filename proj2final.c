@@ -17,7 +17,7 @@ sbit LCD_D7_Direction at TRISB3_bit;
 // Definicao dos pinos de I/O
 sbit BTN_1 at RD0_bit;      // Inicia a contagem e leitura
 sbit BTN_2 at RD1_bit;      // Seleciona entre 60s e 10s (e pausa o sistema)
-sbit LED_TEMP at RD2_bit;   // Acende se Temp > 50 °C
+sbit LED_TEMP at RD2_bit;   // Acende se Temp > 50 Â°C
 
 // Variaveis globais de controle de tempo e estado
 volatile unsigned int tempo_atual = 60; // Inicia com 60s
@@ -91,7 +91,7 @@ void Exibir_Temperatura(unsigned int valor_adc) {
     txt_temp[3] = '.';
     txt_temp[4] = parte_decimal + '0';
     txt_temp[5] = ' ';
-    txt_temp[6] = 223; // Simbolo de grau (°)
+    txt_temp[6] = 223; // Simbolo de grau (Â°)
     txt_temp[7] = 'C';
     txt_temp[8] = ' '; // Espaco apagador
     txt_temp[9] = '\0';
@@ -189,10 +189,6 @@ void main() {
                 if (tempo_atual > 0) {
                     tempo_atual--;
                     Exibir_Tempo(tempo_atual);
-                } else {
-                    // Opcional: Se quiser que o sistema pare ao zerar o cronometro
-                    // iniciou_sistema = 0;
-                    // LED_TEMP = 0;
                 }
             }
 
