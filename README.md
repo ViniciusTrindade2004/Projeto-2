@@ -14,17 +14,21 @@ Dentre os recursos utilizados, destaca-se os seguintes:
 
 * Timers e Interrupções: Utilização simultânea de múltiplos temporizadores de hardware. O Timer0 atua gerando uma base de tempo precisa de 1 segundo (para a contagem longa de 60s), enquanto o Timer1 gera uma base de 250ms (para a contagem curta de 10s).
 * Conversor Analógico-Digital (ADC) com resolução de 10 bits.
-* Display LCD (Modo 4 bits)
+* Display LCD (Modo 4 bits).
 * Otimização de Memória: O processamento matemático da temperatura foi feito através de manipulação de inteiros (unsigned long e módulo/divisão), evitando o uso de variáveis do tipo float, que ocupam grande quantidade de memória RAM de dados no PIC.
 
 ## Resultados e Discussão
 
-O firmware foi compilado com sucesso e o arquivo hex foi carregado no simulador SimulIDE. Seguem abaixo imagens que mostram a compilação, a contagem longa e a contagem curta, respectivamente
+O firmware foi compilado com sucesso e o arquivo hex foi carregado no simulador SimulIDE. Seguem abaixo imagens que mostram a compilação, a contagem curta e a contagem longa, respectivamente:
 
+![Compilação sucedida](https://github.com/ViniciusTrindade2004/Projeto-2/blob/main/compilacao.png)
+![Contagem curta](https://github.com/ViniciusTrindade2004/Projeto-2/blob/main/contagem_curta.png)
+![Contagem longa](https://github.com/ViniciusTrindade2004/Projeto-2/blob/main/contagem_longa.png)
 
+O botão inferior atua como chave seletora e pausa. Ao ser pressionado, ele interrompe a aferição e contagem e alterna o cronômetro entre as configurações de 60 segundos e 10 segundos, limpando e atualizando o LCD.
 
-O botão seletor (**BTN_2**) atua como chave seletora (*Toggle*) e pausa. Ao ser pressionado, ele interrompe qualquer processo em andamento, reseta a lógica de segurança (desligando o LED) e alterna o cronômetro entre as configurações de **60 segundos e 10 segundos**, limpando e atualizando a interface gráfica imediatamente.
+O botão superior aciona o início da contagem regressiva, gerida pelos timers via interrupções, além de iniciar a aferição da temperatura.
 
-O botão de início (**BTN_1**) aciona o início da contagem regressiva, gerida pelos timers em *background* via interrupções, além de iniciar a varredura contínua da temperatura.
+O potênciometro está ligado a 1V e permite variações de temperatura de 0°C a 100°C.
 
-A formatação algorítmica cumpriu o requisito de exibir a temperatura com uma casa decimal (no formato "XX.X °C") sem a necessidade de cálculos de ponto flutuante. A lógica analógica ativou o LED digital imediatamente ao cruzar o limiar de $50^{\circ}C$. Por fim, a interface mecânica demonstrou alta resiliência contra *bouncing* (através de *delays*) e repetição indesejada de comandos (através de travas de *while* para segurar a execução enquanto o botão permanece pressionado).
+Nota-se que na imagem da contagem curta, a temperatura é menor que 50°C e portanto o LED está apagado. No caso da contagem longa, ela é superior a 50°C e o LED está aceso.
